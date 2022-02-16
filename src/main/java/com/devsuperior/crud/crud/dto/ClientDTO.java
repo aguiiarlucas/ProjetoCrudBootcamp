@@ -4,7 +4,6 @@ import com.devsuperior.crud.crud.entities.Client;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Objects;
 
 public class ClientDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -33,66 +32,5 @@ public class ClientDTO implements Serializable {
         this.income = entity.getIncome();
         this.birthDate = entity.getBirthDate();
         this.children = entity.getChildren();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public Double getIncome() {
-        return income;
-    }
-
-    public void setIncome(Double income) {
-        this.income = income;
-    }
-
-    public Instant getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Instant birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public Integer getChildren() {
-        return children;
-    }
-
-    public void setChildren(Integer children) {
-        this.children = children;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ClientDTO clientDTO = (ClientDTO) o;
-        return id.equals(clientDTO.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

@@ -1,5 +1,7 @@
 package com.devsuperior.crud.crud.entities;
 
+import org.hibernate.annotations.Columns;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -18,6 +20,7 @@ public class Client  implements Serializable {
         private String name;
         private String cpf;
         private Double income;
+        @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
         private Instant birthDate;
         private Integer children;
 
@@ -82,4 +85,3 @@ public class Client  implements Serializable {
                 this.children = children;
         }
 }
-
