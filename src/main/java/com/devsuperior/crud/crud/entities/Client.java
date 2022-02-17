@@ -1,12 +1,8 @@
 package com.devsuperior.crud.crud.entities;
 
-import org.hibernate.annotations.Columns;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Date;
-import java.util.Objects;
 
 
 @Entity
