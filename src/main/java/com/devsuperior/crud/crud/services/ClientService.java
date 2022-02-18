@@ -4,7 +4,12 @@ package com.devsuperior.crud.crud.services;
 import com.devsuperior.crud.crud.dto.ClientDTO;
 import com.devsuperior.crud.crud.entities.Client;
 import com.devsuperior.crud.crud.repositories.ClientRepository;
+import com.devsuperior.crud.crud.services.exceptions.DatabaseException;
+import com.devsuperior.crud.crud.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,13 +52,32 @@ public class ClientService {
         return new ClientDTO(entity);
     }
 
-/*
+
     @Transactional
-    public ClientDTO update(ClientDTO dto, Long id) {
-        Client entity = repository.getById(dto.getId());
-        entity.setName(dto.getName());
-        entity = repository.save(entity);
-        return new ClientDTO(entity);
-    }*/
+    public ClientDTO update(Long id, ClientDTO dto) {
+       try {
+           Client entity = repository.getById(id);
+           entity.setName(dto.getName());
+           entity.setCpf(dto.getCpf());
+           entity.setIncome(dto.getIncome());
+           entity.setBirthDate(dto.getBirthDate());
+           entity.setChildren(dto.getChildren());
+           entity = repository.save(entity);
+           return new ClientDTO(entity);
+       }catch (EntityNotFoundException e ){
+           throw new ResourceNotFoundException("Id not found!");
+       }
+
+    }
+
+    public void delete(Long id) {
+        try {
+            repository.deleteById(id);
+        }catch (EmptyResultDataAccessException e ) {
+            throw new ResourceNotFoundException("Id not found" + id);
+        }catch (DataIntegrityViolationException  e ){
+            throw new DatabaseException("Integrity violation! ");
+        }
+    }
 }
 

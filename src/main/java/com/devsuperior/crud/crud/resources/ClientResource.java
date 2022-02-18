@@ -39,9 +39,15 @@ public class ClientResource {
 
     }
 
-/*    @PutMapping(value = "/{id}")
+   @PutMapping(value = "/{id}")
     public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto) {
-        dto = service.update(dto);
+        dto = service.update(id, dto );
         return ResponseEntity.ok().body(dto);
-    }*/
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<ClientDTO> delete (@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
