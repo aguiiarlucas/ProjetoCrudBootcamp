@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +28,9 @@ public class ClientService {
 
 
     @Transactional(readOnly = true)
-    public List<ClientDTO> findAll() {
-        List<Client> list = repository.findAll();
-
-        return list.stream().map(ClientDTO::new).collect(Collectors.toList());
-
+    public Page<ClientDTO> findAllPaged(PageRequest pageRequest) {
+        Page<Client> list = repository.findAll(pageRequest);
+        return  list.map(ClientDTO::new);
     }
 
     @Transactional(readOnly = true)
@@ -79,5 +79,7 @@ public class ClientService {
             throw new DatabaseException("Integrity violation! ");
         }
     }
+
+
 }
 
